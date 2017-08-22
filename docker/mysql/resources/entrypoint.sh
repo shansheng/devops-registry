@@ -103,8 +103,7 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 
 		mysql=( mysql --protocol=socket -uroot -hlocalhost --socket="${SOCKET}" )
 
-		for i in {300..0}; do
-			echo "${mysql[@]}"
+		for i in {100..0}; do
 			if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
 				break
 			fi
