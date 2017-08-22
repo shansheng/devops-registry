@@ -37,4 +37,4 @@ RUN chmod +x ${SONARQUBE_HOME}/bin/entrypoint.sh
 
 WORKDIR ${SONARQUBE_HOME}
 
-ENTRYPOINT [ "/bin/sh", "-c", "${SONARQUBE_HOME}/bin/entrypoint.sh"]
+ENTRYPOINT [ "/bin/sh", "-c", "./bin/entrypoint.sh"]
