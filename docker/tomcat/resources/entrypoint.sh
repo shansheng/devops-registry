@@ -37,4 +37,9 @@ fi
 
 export JAVA_OPTS
 
+if [ `ls ${TOMCAT_HOME}/webapps/ | wc -l` -eq 0 ]; then
+  echo "[`date`] [WARN ] None application found in ${TOMCAT_HOME}/webapps, Copy ROOT to it."
+  \cp -rf ${TOMCAT_HOME}/backup/ROOT ${TOMCAT_HOME}/webapps/
+fi
+
 ${TOMCAT_HOME}/bin/catalina.sh run "$@"

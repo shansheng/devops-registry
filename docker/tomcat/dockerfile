@@ -31,6 +31,8 @@ RUN curl --fail --location --retry 3 \
     && tar -zvxf /tmp/tomcat.tar.gz -C /tmp/ \
     && mkdir -p /opt/app/ \
     && mv /tmp/apache-tomcat* ${TOMCAT_HOME} \
+    && mkdir -p ${TOMCAT_HOME}/backup \
+    && mv ${TOMCAT_HOME}/webapps/ROOT ${TOMCAT_HOME}/backup/ \
     && rm -rf /tmp/tomcat.tar.gz ${TOMCAT_HOME}/webapps/*
 
 ADD resources/entrypoint.sh ${TOMCAT_HOME}/bin/
