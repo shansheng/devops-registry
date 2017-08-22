@@ -10,7 +10,7 @@ FROM harbor.registry.com/primeton/jdk:1.8
 # LABEL maintainer="lizw@primeton.com" \
 #     provider="Primeton Technologies, Ltd."
 
-ENV JENKINS_HOME=/opt/jenkins/work \
+ENV JENKINS_HOME=/opt/work \
     JENKINS_PORT=8080 \
     JAVA_VM_MEM_MIN=512 \
     JAVA_VM_MEM_MAX=1024
@@ -25,8 +25,8 @@ ADD resources/ansible.cfg /etc/ansible/ansible.cfg
 
 # maven local repository
 VOLUME ${USER}/.m2
-# jenkins workspace
-VOLUME ${JENKINS_HOME}
+# jenkins workspace (job)
+VOLUME ${JENKINS_HOME}/workspace
 
 RUN chmod +x /opt/entrypoint.sh \
     && git config --global http.sslVerify false \
