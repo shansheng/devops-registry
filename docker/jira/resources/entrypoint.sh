@@ -29,9 +29,17 @@ if [ ${JAVA_VM_MEM_MIN} -gt ${JAVA_VM_MEM_MAX} ]; then
   JAVA_VM_MEM_MAX=${JAVA_VM_MEM_MIN}
 fi
 
-JAVA_OPTS="${JAVA_OPTS} -Xms${JAVA_VM_MEM_MIN}m -Xmx${JAVA_VM_MEM_MAX}m"
+# Use setenv.sh
+# JAVA_OPTS="${JAVA_OPTS} -Xms${JAVA_VM_MEM_MIN}m -Xmx${JAVA_VM_MEM_MAX}m"
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=utf-8 -Duser.timezone=Asia/Shanghai"
 export JAVA_OPTS
+
+if [ -f ${JIRA_APP}/bin/setenv.sh ]; then
+  sed -i -e "s/768m/${JAVA_VM_MEM_MAX}m/g"  ${JIRA_APP}/bin/setenv.sh
+  sed -i -e "s/384m/${JAVA_VM_MEM_MIN}m/g"  ${JIRA_APP}/bin/setenv.sh
+else
+  JAVA_OPTS="${JAVA_OPTS} -Xms${JAVA_VM_MEM_MIN}m -Xmx${JAVA_VM_MEM_MAX}m"
+fi
 
 if [ -x "${JIRA_APP}/bin/catalina.sh" ]; then
   ${JIRA_APP}/bin/catalina.sh run
