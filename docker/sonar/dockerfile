@@ -1,0 +1,38 @@
+#
+# Copyright (c) 2001-2018 Primeton Technologies, Ltd.
+# All rights reserved.
+#
+# author: ZhongWen Li (mailto:lizw@primeton.com)
+#
+
+FROM harbor.registry.com/primeton/jdk:1.8
+
+# LABEL maintainer="lizw@primeton.com" \
+#     provider="Primeton Technologies, Ltd."
+
+ENV SONARQUBE_HOME=/opt/sonarqube-6.3 \
+    SONARQUBE_VERSION=6.3 \
+    SONARQUBE_PORT=9000 \
+    JAVA_VM_MEM_MIN=512 \
+    JAVA_VM_MEM_MAX=1024 \
+    SONARQUBE_JDBC_USERNAME=sonar \
+    SONARQUBE_JDBC_PASSWORD=sonar \
+    SONARQUBE_JDBC_URL="jdbc:mysql://mysql:3306/sonar"
+
+# .tar, .tar.gz
+ADD resources/sonarqube*.tar* /opt/
+
+RUN \rm -f ${SONARQUBE_HOME}/extensions/plugins/README.txt
+
+# .tar, .tar.gz
+ADD resources/sonar-plugins.tar* ${SONARQUBE_HOME}/extensions/
+
+EXPOSE ${SONARQUBE_PORT}
+
+VOLUME ${SONARQUBE_HOME}/data
+
+ADD resources/entrypoint.sh ${SONARQUBE_HOME}/bin/entrypoint.sh
+
+RUN chmod +x ${SONARQUBE_HOME}/bin/entrypoint.sh
+
+ENTRYPOINT [ "/bin/sh", "-c", "${SONARQUBE_HOME}/bin/entrypoint.sh"]
