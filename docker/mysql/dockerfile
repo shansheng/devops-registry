@@ -11,9 +11,9 @@ LABEL maintainer="lizw@primeton.com"
 
 LABEL provider="Primeton Technologies, Ltd."
 
-ENV LANG="en_US.UTF-8" \
-    LANGUAGE="en_US:en" \
-    LC_ALL="en_US.UTF-8"
+# ENV LANG="en_US.UTF-8" \
+#     LANGUAGE="en_US:en" \
+#     LC_ALL="en_US.UTF-8"
 
 # Default value for entrypoint
 ENV MYSQL_ROOT_PASSWORD="root" \
@@ -30,7 +30,7 @@ ENV MYSQL_ROOT_PASSWORD="root" \
 # Do not use alias cp
 RUN \cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-ADD resources/my.cnf /etc/my.cnf
+ADD resources/my.cnf /etc/mysql/my.cnf
 
 ADD resources/devops/*.sql /tmp/devops/5.0/
 
@@ -40,4 +40,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
-CMD [ "mysqld", "--defaults-file=/etc/my.cnf", "--user=mysql" ]
+CMD [ "mysqld" ]
