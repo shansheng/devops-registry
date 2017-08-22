@@ -43,4 +43,4 @@ JAVA_OPTS="${JAVA_OPTS} -Dsonar.jdbc.password=${SONARQUBE_JDBC_PASSWORD}"
 JAVA_OPTS="${JAVA_OPTS} -Dsonar.jdbc.url=${SONARQUBE_JDBC_URL}"
 JAVA_OPTS="${JAVA_OPTS} -Dsonar.web.javaAdditionalOpts=\"$SONARQUBE_WEB_JVM_OPTS -Djava.security.egd=file:/dev/./urandom\""
 
-exec java ${JAVA_OPTS} -jar ${SONARQUBE_HOME}/lib/sonar-application-${SONAR_VERSION}.jar "$@"
+exec java ${JAVA_OPTS} -jar ${SONARQUBE_HOME}/lib/sonar-application-${SONARQUBE_VERSION}.jar "$@"
