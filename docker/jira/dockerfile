@@ -15,7 +15,7 @@ ENV JIRA_VERSION=7.3.1 \
     JIRA_PORT=8090
 
 # .tar, .tar.gz
-ADD jira.tar* /opt/
+ADD resources/jira.tar* /opt/
 
 ADD resources/jira-application.properties ${JIRA_APP}/atlassian-jira/WEB-INF/classes/jira-application.properties
 
