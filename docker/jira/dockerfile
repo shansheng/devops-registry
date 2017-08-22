@@ -12,7 +12,9 @@ FROM harbor.registry.com/primeton/jdk:1.8
 
 ENV JIRA_VERSION=7.3.1 \
     JIRA_APP=/opt/jira-7.3.1 \
-    JIRA_PORT=8090
+    JIRA_PORT=8090 \
+    JAVA_VM_MEM_MIN=512 \
+    JAVA_VM_MEM_MAX=1024
 
 # .tar, .tar.gz
 ADD resources/jira.tar* /opt/
