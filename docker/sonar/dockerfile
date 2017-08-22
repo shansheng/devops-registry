@@ -17,7 +17,7 @@ ENV SONARQUBE_HOME=/opt/sonarqube-6.3 \
     JAVA_VM_MEM_MAX=1024 \
     SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_PASSWORD=sonar \
-    SONARQUBE_JDBC_URL="jdbc:mysql://mysql:3306/sonar"
+    SONARQUBE_JDBC_URL="jdbc:mysql://mysql:3306/sonar?useUnicode=true&characterEncoding=utf8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false"
 
 # .tar, .tar.gz
 ADD resources/sonarqube*.tar* /opt/
