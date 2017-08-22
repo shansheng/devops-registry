@@ -104,8 +104,8 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		mysql=( mysql --protocol=socket -uroot -hlocalhost --socket="${SOCKET}" )
 
 		for i in {300..0}; do
-			# if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
-			if echo 'SELECT 1' | "${mysql[@]}" ; then
+			echo "${mysql[@]}"
+			if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
 				break
 			fi
 			echo 'MySQL init process in progress...'
@@ -183,20 +183,11 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 			echo
 		done
 
-		if [ ! -z "$MYSQL_ONETIME_PASSWORD" ]; then
-			"${mysql[@]}" <<-EOSQL
-				ALTER USER 'root'@'%' PASSWORD EXPIRE;
-			EOSQL
-		fi
-
     if [ -f "/var/lib/mysql/devops-5.0.ini" ]; then
       echo "[INFO ] DevOPS 5.0 SQL files already initialized."
     else
 "${mysql[@]}" <<-EOSQL
         SET @@SESSION.SQL_LOG_BIN=0;
-        CREATE USER 'root'@'%';
-        GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION ;
-        DROP DATABASE IF EXISTS test ;
 
         CREATE DATABASE $MYSQL_DEVOPS_DATABASE CHARACTER SET utf8 COLLATE utf8_general_ci ;
         GRANT ALL ON $MYSQL_DEVOPS_DATABASE.* TO '$MYSQL_DEVOPS_USER'@'%' IDENTIFIED BY '$MYSQL_DEVOPS_PASSWORD' WITH GRANT OPTION ;
@@ -217,6 +208,12 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 EOSQL
       touch /var/lib/mysql/devops-5.0.ini
     fi
+
+		if [ ! -z "$MYSQL_ONETIME_PASSWORD" ]; then
+			"${mysql[@]}" <<-EOSQL
+				ALTER USER 'root'@'%' PASSWORD EXPIRE;
+			EOSQL
+		fi
 
 		if ! kill -s TERM "$pid" || ! wait "$pid"; then
 			echo >&2 'MySQL init process failed.'
