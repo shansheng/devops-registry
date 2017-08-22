@@ -34,8 +34,8 @@ ADD resources/my.cnf /etc/my.cnf
 
 ADD resources/devops/*.sql /tmp/devops/5.0/
 
-ADD resources/entrypoint.sh /bin/entrypoint.sh
+ADD resources/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-RUN chmod +x /bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "entrypoint.sh" ]
