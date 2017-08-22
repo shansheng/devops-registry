@@ -11,21 +11,21 @@ LABEL maintainer="lizw@primeton.com"
 
 LABEL provider="Primeton Technologies, Ltd."
 
-ENV LANG      = "en_US.UTF-8" \
-    LANGUAGE  = "en_US:en" \
-    LC_ALL    = "en_US.UTF-8"
+ENV LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    LC_ALL="en_US.UTF-8"
 
 # Default value for entrypoint
-ENV MYSQL_ROOT_PASSWORD   = "root" \
-    MYSQL_DEVOPS_DATABASE = "devops" \
-    MYSQL_DEVOPS_USER     = "devops" \
-    MYSQL_DEVOPS_PASSWORD = "devops" \
-    MYSQL_SONAR_DATABASE  = "sonar" \
-    MYSQL_SONAR_USER      = "sonar" \
-    MYSQL_SONAR_PASSWORD  = "sonar" \
-    MYSQL_JIRA_DATABASE   = "jira" \
-    MYSQL_JIRA_USER       = "jira" \
-    MYSQL_JIRA_PASSWORD   = "jira"
+ENV MYSQL_ROOT_PASSWORD="root" \
+    MYSQL_DEVOPS_DATABASE="devops" \
+    MYSQL_DEVOPS_USER="devops" \
+    MYSQL_DEVOPS_PASSWORD="devops" \
+    MYSQL_SONAR_DATABASE="sonar" \
+    MYSQL_SONAR_USER="sonar" \
+    MYSQL_SONAR_PASSWORD="sonar" \
+    MYSQL_JIRA_DATABASE="jira" \
+    MYSQL_JIRA_USER="jira" \
+    MYSQL_JIRA_PASSWORD="jira"
 
 # Do not use alias cp
 RUN \cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
