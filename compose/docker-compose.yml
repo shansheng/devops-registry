@@ -1,0 +1,88 @@
+version: '3'
+services:
+  mysql:
+    image: harbor.registry.com/primeton/mysql:5.6
+    restart: always
+    # volumes:
+    #   - /data/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - ./conf/mysql/env
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+
+  devops:
+    image: harbor.registry.com/primeton/devops:5.0
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+
+  sonar:
+    image: harbor.registry.com/primeton/sonar:6.3
+    restart: always
+    # volumes:
+    #   - /data/sonarqube:/opt/sonarqube/data
+    ports:
+      - 9000:9000
+    env_file:
+      - conf/sonarqube/env
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+
+  nexus:
+    image: harbor.registry.com/primeton/nexus:3.5.0
+    restart: always
+    # volumes:
+    #   - /data/nexus:/nexus-data
+    ports:
+      - 8081:8081
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+
+  jenkins:
+    image: harbor.registry.com/primeton/jenkins:2
+    restart: always
+    ports:
+      - 8010:8080
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+
+  gitlab:
+    image: harbor.registry.com/primeton/gitlab:9.1.2
+    restart: always
+    # volumes:
+    #   - /data/gitlab/config:/etc/gitlab
+    #   - /data/gitlab/logs:/var/log/gitlab
+    #   - /data/gitlab/data:/var/opt/gitlab
+    ports:
+      - 443:443
+      - 22:22
+      - 80:80
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+
+  jira:
+    image: harbor.registry.com/primeton/jira:7.3.1
+    restart: always
+    ports:
+      - 8090:8090
+    deploy:
+      placement:
+        constraints: [node.role != manager]
