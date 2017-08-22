@@ -38,4 +38,6 @@ ADD resources/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
+CMD [ "mysqld", "--defaults-file=/etc/my.cnf", "--user=mysql" ]
