@@ -31,8 +31,8 @@ ENV MYSQL_ROOT_PASSWORD="root" \
 RUN \cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # ADD resources/my.cnf /etc/mysql/my.cnf
-RUN echo "character-set-server=utf8" >> /etc/mysql/conf.d/mysql.cnf \
-    && echo "character-set-server=utf8" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
+# RUN echo "character-set-server=utf8" >> /etc/mysql/conf.d/mysql.cnf \
+RUN echo "character-set-server=utf8" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "collation-server=utf8_bin" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "default-storage-engine=Innodb" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "max_allowed_packet=256M" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
