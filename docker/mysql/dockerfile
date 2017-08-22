@@ -34,7 +34,7 @@ RUN \cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN echo "character-set-server=utf8" >> /etc/mysql/conf.d/mysql.cnf \
     && echo "character-set-server=utf8" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "collation-server=utf8_bin" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
-    && echo "default-storage-engine" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
+    && echo "default-storage-engine=Innodb" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "max_allowed_packet=256M" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "innodb_log_file_size=2GB" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
     && echo "explicit_defaults_for_timestamp=true" >> /etc/mysql/mysql.conf.d/mysqld.cnf \
