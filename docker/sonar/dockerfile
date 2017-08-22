@@ -35,4 +35,6 @@ ADD resources/entrypoint.sh ${SONARQUBE_HOME}/bin/entrypoint.sh
 
 RUN chmod +x ${SONARQUBE_HOME}/bin/entrypoint.sh
 
+WORKDIR ${SONARQUBE_HOME}
+
 ENTRYPOINT [ "/bin/sh", "-c", "${SONARQUBE_HOME}/bin/entrypoint.sh"]
