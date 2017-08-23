@@ -14,13 +14,13 @@ FROM harbor.registry.com/primeton/jdk:1.8
 ENV JENKINS_HOME=/opt/work \
     JENKINS_PORT=8080 \
     JAVA_VM_MEM_MIN=512 \
-    JAVA_VM_MEM_MAX=1024
+    JAVA_VM_MEM_MAX=4096
 
 # build environment settings
-ENV MAVEN_HOME=/opt/maven \
-    NODE_HOME=/opt/node-v6.10.2-linux-x64 \
+ENV MAVEN_HOME=/opt/apache-maven-3.3.9 \
+    NODE_HOME=/opt/node-v6.11.2-linux-x64 \
     ANT_HOME=/opt/apache-ant-1.10.1 \
-    GRADLE_HOME=/opt/gradle-4.0.1 \
+    GRADLE_HOME=/opt/gradle-4.0.2 \
     SONAR_SCANNER_HOME=/opt/sonar-scanner-2.8
 
 ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HOME}/bin:${SONAR_SCANNER_HOME}/bin"
@@ -28,21 +28,45 @@ ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HO
 # build requirements software
 RUN yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils 
 
-# .tar or .tar.gz
-ADD resources/jenkins.tar* /opt/
+# maven, node, ant, gradle, sonar, jenkins
+ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
+ADD https://nodejs.org/dist/v6.11.2/node-v6.11.2-linux-x64.tar.xz /opt/
+ADD https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz /opt/
+
+RUN curl --fail --location --retry 3 \
+        http://services.gradle.org/distributions/gradle-4.0.2-bin.zip -o /tmp/gradle.zip \
+    && unzip /tmp/gradle.zip -d /opt/ \
+    && \rm -f /tmp/gradle.zip
+
+# https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/
+RUN curl --fail --location --retry 3 \
+        https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.8.zip \
+        -o /tmp/sonar-scanner.zip \
+    && unzip /tmp/sonar-scanner.zip -d /opt/ \
+    && \rm -f /tmp/sonar-scanner.zip
+
+# http://mirrors.jenkins.io/war-stable/${version}/jenkins.war
+# 2.60.3
+RUN curl --fail --location --retry 3 \
+        http://mirrors.jenkins.io/war-stable/latest/jenkins.war \
+        -o /opt/jenkins.war
+
+# jenkins plugins if exists (.tar, .tar.gz)
+ADD resources/plugins.tar* ${JENKINS_HOME}/
+
 ADD resources/entrypoint.sh /opt/
-# ADD resources/userapp_access.pem /opt/userapp_access.pem
-# ADD resources/ansible.cfg /etc/ansible/ansible.cfg
+RUN chmod +x /opt/entrypoint.sh
 
 # maven local repository
 VOLUME ${USER}/.m2
 # jenkins workspace (job)
 VOLUME ${JENKINS_HOME}/workspace
 
-RUN chmod +x /opt/entrypoint.sh \
-    && git config --global http.sslVerify false \
-    && git config --global user.name "devops" \
-    && git config --global user.email "devops@primeton.com"
+# RUN chmod +x /opt/entrypoint.sh \
+#     && git config --global http.sslVerify false \
+#     && git config --global user.name "devops" \
+#     && git config --global user.email "devops@primeton.com"
+ADD resources/.gitconfig ${HOME}/
 
 EXPOSE ${JENKINS_PORT}
 

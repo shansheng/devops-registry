@@ -1,0 +1,49 @@
+#
+# Copyright (c) 2001-2018 Primeton Technologies, Ltd.
+# All rights reserved.
+#
+# author: ZhongWen Li (mailto:lizw@primeton.com)
+#
+
+FROM harbor.registry.com/primeton/jdk:1.8
+
+# LABEL maintainer="lizw@primeton.com" \
+#     provider="Primeton Technologies, Ltd."
+
+# jenkins settings
+ENV JENKINS_HOME=/opt/work \
+    JENKINS_PORT=8080 \
+    JAVA_VM_MEM_MIN=512 \
+    JAVA_VM_MEM_MAX=1024
+
+# build environment settings
+ENV MAVEN_HOME=/opt/maven \
+    NODE_HOME=/opt/node-v6.10.2-linux-x64 \
+    ANT_HOME=/opt/apache-ant-1.10.1 \
+    GRADLE_HOME=/opt/gradle-4.0.1 \
+    SONAR_SCANNER_HOME=/opt/sonar-scanner-2.8
+
+ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HOME}/bin:${SONAR_SCANNER_HOME}/bin"
+
+# build requirements software
+RUN yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils 
+
+# .tar or .tar.gz
+ADD resources/jenkins.tar* /opt/
+ADD resources/entrypoint.sh /opt/
+# ADD resources/userapp_access.pem /opt/userapp_access.pem
+# ADD resources/ansible.cfg /etc/ansible/ansible.cfg
+
+# maven local repository
+VOLUME ${USER}/.m2
+# jenkins workspace (job)
+VOLUME ${JENKINS_HOME}/workspace
+
+RUN chmod +x /opt/entrypoint.sh \
+    && git config --global http.sslVerify false \
+    && git config --global user.name "devops" \
+    && git config --global user.email "devops@primeton.com"
+
+EXPOSE ${JENKINS_PORT}
+
+ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh" ]

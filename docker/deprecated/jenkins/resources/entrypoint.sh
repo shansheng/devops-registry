@@ -26,17 +26,6 @@ if [ ! -d ${JENKINS_HOME} ]; then
   mkdir ${JENKINS_HOME}
 fi
 
-if [ -z "${JAVA_VM_MEM_MIN}" ]; then
-  JVM_MIN_MEM=512
-fi
-if [ -z "${JAVA_VM_MEM_MAX}" ]; then
-  JVM_MAX_MEM=4096
-fi
-if [ ${JAVA_VM_MEM_MIN} -gt ${JAVA_VM_MEM_MAX} ]; then
-  echo "[`date`] [WARN ] JAVA_VM_MEM_MIN is bigger than JAVA_VM_MEM_MAX"
-  JAVA_VM_MEM_MAX=${JAVA_VM_MEM_MIN}
-fi
-
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=utf-8 -Xmx${JAVA_VM_MEM_MAX}m -Xms${JAVA_VM_MEM_MIN}m -DJENKINS_HOME=${JENKINS_HOME}"
 
 java ${JAVA_OPTS} -jar ${BASE_DIR}/jenkins.war --httpPort=${JENKINS_PORT}

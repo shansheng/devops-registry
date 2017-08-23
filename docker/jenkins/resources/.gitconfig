@@ -1,0 +1,10 @@
+[user]
+	name = jenkins
+	email = jenkins@devops.com
+[color]
+	ui = true
+[core]
+	autocrlf = input
+	safecrlf = warn
+[http]
+	sslVerify = false
