@@ -1,5 +1,5 @@
 JAVA_VM_MEM_MIN=1024
-JAVA_VM_MEM_MAX=3072
+JAVA_VM_MEM_MAX=8192
 SONARQUBE_JDBC_USERNAME=sonar
 SONARQUBE_JDBC_PASSWORD=sonar
 SONARQUBE_JDBC_URL=jdbc:mysql://mysql:3306/sonar?useUnicode=true&characterEncoding=utf8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&rewriteBatchedStatements=true&useConfigs=maxPerformance

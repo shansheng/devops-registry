@@ -15,9 +15,14 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 4096M
+      reservations:
+        memory: 256M
 
   devops:
     image: harbor.registry.com/primeton/devops:5.0
@@ -37,9 +42,14 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 8192M
+      reservations:
+        memory: 1024M
 
   sonar:
     image: harbor.registry.com/primeton/sonar:6.3
@@ -58,9 +68,14 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 8192M
+      reservations:
+        memory: 4096M
 
   nexus:
     image: harbor.registry.com/primeton/nexus:3.5.0
@@ -77,9 +92,14 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 8192M
+      reservations:
+        memory: 1024M
 
   jenkins:
     image: harbor.registry.com/primeton/jenkins:2
@@ -98,9 +118,14 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 8192M
+      reservations:
+        memory: 2048M
 
   gitlab:
     image: harbor.registry.com/primeton/gitlab:9.1.2
@@ -119,9 +144,14 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 8192M
+      reservations:
+        memory: 2048M
 
   jira:
     image: harbor.registry.com/primeton/jira:7.3.1
@@ -141,6 +171,11 @@ services:
         delay: 15s
         max_attempts: 5
       labels:
-        - provider=Primeton
+        provider: "Primeton"
+        category: "DevOPS"
       placement:
         constraints: [node.role != manager]
+      limits:
+        memory: 8192M
+      reservations:
+        memory: 1024M
