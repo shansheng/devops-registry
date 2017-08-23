@@ -18,6 +18,8 @@ services:
     restart: always
     ports:
       - 8080:8080
+    env_file:
+      - conf/devops/env
     depends_on:
       - mysql
     links:
@@ -34,7 +36,7 @@ services:
     ports:
       - 9000:9000
     env_file:
-      - conf/sonarqube/env
+      - conf/sonar/env
     depends_on:
       - mysql
     links:
@@ -50,6 +52,8 @@ services:
     #   - /data/nexus:/nexus-data
     ports:
       - 8081:8081
+    env_file:
+      - conf/nexus/env
     deploy:
       placement:
         constraints: [node.role != manager]
@@ -59,6 +63,8 @@ services:
     restart: always
     ports:
       - 8010:8080
+    env_file:
+      - conf/jenkins/env
     deploy:
       placement:
         constraints: [node.role != manager]
@@ -83,6 +89,8 @@ services:
     restart: always
     ports:
       - 8090:8090
+    env_file:
+      - conf/jira/env
     deploy:
       placement:
         constraints: [node.role != manager]
