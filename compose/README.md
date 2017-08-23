@@ -44,5 +44,5 @@ mkdir -p ${VOLUME_ROOT}/jira/log
 mkdir -p ${VOLUME_ROOT}/jira/export
 mkdir -p ${VOLUME_ROOT}/jira/caches
 
-chmod 777 ${VOLUME_ROOT}/*
+chmod 777 -R ${VOLUME_ROOT}/*
 ```
