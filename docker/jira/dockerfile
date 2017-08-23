@@ -16,6 +16,11 @@ ENV JIRA_VERSION=7.3.1 \
     JAVA_VM_MEM_MIN=512 \
     JAVA_VM_MEM_MAX=1024
 
+VOLUME /opt/jirasoftware-home/data/attachments \
+    /opt/jirasoftware-home/log \
+    /opt/jirasoftware-home/export \
+    /opt/jirasoftware-home/caches
+
 # .tar, .tar.gz
 ADD resources/jira.tar* /opt/
 
