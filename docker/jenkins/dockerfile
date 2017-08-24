@@ -25,6 +25,9 @@ ENV MAVEN_HOME=/opt/apache-maven-3.3.9 \
 
 ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HOME}/bin:${SONAR_SCANNER_HOME}/bin"
 
+# maven template settings.xml
+ADD resources/settings.xml /opt/template/maven/settings.xml
+
 # ansible yum repoistory
 ADD resources/ansible.repo /etc/yum.repo.d/
 

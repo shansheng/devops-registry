@@ -37,6 +37,16 @@ if [ ${JAVA_VM_MEM_MIN} -gt ${JAVA_VM_MEM_MAX} ]; then
   JAVA_VM_MEM_MAX=${JAVA_VM_MEM_MIN}
 fi
 
+# Maven settings.xml
+SETTINGS_TEMPLATE_FILE="/opt/template/maven/settings.xml"
+if [ -f ${SETTINGS_TEMPLATE_FILE} ]; then
+  echo "[`date`] [INFO ] Override copy maven settings template file ${SETTINGS_TEMPLATE_FILE} to ${MAVEN_HOME}/conf/settings.xml."
+  # do not use cp alias
+  \cp -f ${SETTINGS_TEMPLATE_FILE} ${MAVEN_HOME}/conf/settings.xml
+else
+  echo "[`date`] [WARN ] Maven settings template file ${SETTINGS_TEMPLATE_FILE} not found, then use default settings."
+fi
+
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=utf-8 -Duser.timezone=Asia/Shanghai"
 JAVA_OPTS="${JAVA_OPTS} -Xmx${JAVA_VM_MEM_MAX}m -Xms${JAVA_VM_MEM_MIN}m -DJENKINS_HOME=${JENKINS_HOME}"
 
