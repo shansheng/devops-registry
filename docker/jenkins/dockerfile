@@ -28,18 +28,21 @@ ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HO
 # maven template settings.xml
 ADD resources/settings.xml /opt/template/maven/settings.xml
 
-# EPEL yum repository
+# epel, ansible, git, etc. yum repoistory
+# ADD resources/yum.repos.d/*.repo /etc/yum.repos.d/
+
+# requirements software
 RUN curl --fail --location --retry 3 \
         https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
         -o /tmp/epel-release-latest-7.noarch.rpm \
     && rpm -ivh /tmp/epel-release-latest-7.noarch.rpm \
-    && \rm -f /tmp/epel-release-latest-7.noarch.rpm
-
-# ansible yum repoistory
-ADD resources/ansible.repo /etc/yum.repo.d/
-
-# ci requirements software
-RUN yum clean all \
+    && \rm -f /tmp/epel-release-latest-7.noarch.rpm \
+    && curl --fail --location --retry 3 \
+        http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
+        -o /tmp/git-release-7-2.noarch.rpm \
+    && rpm -ivh /tmp/git-release-7-2.noarch.rpm \
+    && \rm -f /tmp/git-release-7-2.noarch.rpm \
+    && yum clean all \
     && yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils ftp
 
 # maven, node, ant, gradle, sonar, jenkins
