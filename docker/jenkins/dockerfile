@@ -59,7 +59,7 @@ RUN curl --fail --location --retry 3 \
         -o /opt/jenkins.war
 
 # jenkins plugins if exists (.tar, .tar.gz)
-# ADD resources/plugins.tar* ${JENKINS_HOME}/
+ADD resources/plugins.tar* ${JENKINS_HOME}/
 
 ADD resources/entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
