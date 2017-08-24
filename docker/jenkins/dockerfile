@@ -43,7 +43,7 @@ RUN curl --fail --location --retry 3 \
     && rpm -ivh /tmp/git-release-7-2.noarch.rpm \
     && \rm -f /tmp/git-release-7-2.noarch.rpm \
     && yum clean all \
-    && yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils ftp
+    && yum -y install zip gzip unzip wget git ansible coreutils ttf-dejavu expect iputils ftp
 
 # maven, node, ant, gradle, sonar, jenkins
 # ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
