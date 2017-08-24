@@ -28,6 +28,13 @@ ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HO
 # maven template settings.xml
 ADD resources/settings.xml /opt/template/maven/settings.xml
 
+# EPEL yum repository
+RUN curl --fail --location --retry 3 \
+        https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+        -o /tmp/epel-release-latest-7.noarch.rpm \
+    && rpm -ivh /tmp/epel-release-latest-7.noarch.rpm \
+    && \rm -f /tmp/epel-release-latest-7.noarch.rpm
+
 # ansible yum repoistory
 ADD resources/ansible.repo /etc/yum.repo.d/
 
