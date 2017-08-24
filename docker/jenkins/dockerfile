@@ -96,10 +96,11 @@ RUN curl --fail --location --retry 3 \
 # jenkins plugins if exists (.tar, .tar.gz)
 ADD resources/plugins.tar* ${JENKINS_HOME}/
 
-# entrypoint
+# entrypoint, env
 ADD resources/entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh \
-    && echo "alias l='ls -al'" >> /root/.bashrc
+    && echo "alias l='ls -al'" >> /root/.bashrc \
+    && echo "registry=https://registry.npm.taobao.org" >> /root/.npmrc
 
 # RUN addgroup -g 1001 jenkins && adduser -u 1001 -G jenkins -s /bin/bash -D jenkins
 
