@@ -36,15 +36,39 @@ RUN yum clean all \
     && yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils ftp
 
 # maven, node, ant, gradle, sonar, jenkins
-ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
-ADD https://nodejs.org/dist/v6.11.2/node-v6.11.2-linux-x64.tar.xz /opt/
-ADD https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz /opt/
+# ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
+# ADD https://nodejs.org/dist/v6.11.2/node-v6.11.2-linux-x64.tar.gz /opt/
+# ADD https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz /opt/
 
+# maven
 RUN curl --fail --location --retry 3 \
-        http://services.gradle.org/distributions/gradle-4.0.2-bin.zip -o /tmp/gradle.zip \
+        https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz \
+        -o /tmp/maven.tar.gz \
+    && tar -zvxf /tmp/maven.tar.gz -C /opt/ \
+    && \rm -f /tmp/maven.tar.gz
+
+# node
+RUN curl --fail --location --retry 3 \
+        https://nodejs.org/dist/v6.11.2/node-v6.11.2-linux-x64.tar.gz \
+        -o /tmp/node.tar.gz \
+    && tar -zvxf /tmp/node.tar.gz -C /opt/ \
+    && \rm -f /tmp/node.tar.gz
+
+# ant
+RUN curl --fail --location --retry 3 \
+        https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz \
+        -o /tmp/ant.tar.gz \
+    && tar -zvxf /tmp/ant.tar.gz -C /opt/ \
+    && \rm -f /tmp/ant.tar.gz
+
+# gradle
+RUN curl --fail --location --retry 3 \
+        http://services.gradle.org/distributions/gradle-4.0.2-bin.zip \
+        -o /tmp/gradle.zip \
     && unzip /tmp/gradle.zip -d /opt/ \
     && \rm -f /tmp/gradle.zip
 
+# sonar-scanner
 # https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/
 RUN curl --fail --location --retry 3 \
         https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.8.zip \
@@ -52,6 +76,7 @@ RUN curl --fail --location --retry 3 \
     && unzip /tmp/sonar-scanner.zip -d /opt/ \
     && \rm -f /tmp/sonar-scanner.zip
 
+# jenkins
 # http://mirrors.jenkins.io/war-stable/${version}/jenkins.war
 # 2.60.3
 RUN curl --fail --location --retry 3 \
@@ -61,6 +86,7 @@ RUN curl --fail --location --retry 3 \
 # jenkins plugins if exists (.tar, .tar.gz)
 ADD resources/plugins.tar* ${JENKINS_HOME}/
 
+# entrypoint
 ADD resources/entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
 
