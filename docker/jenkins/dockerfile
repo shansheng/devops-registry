@@ -110,8 +110,10 @@ RUN chmod +x /opt/entrypoint.sh \
 VOLUME /root/.m2
 # VOLUME /home/jenkins/.m2
 
-# jenkins workspace (job)
+# jenkins job, workspace
 VOLUME ${JENKINS_HOME}/workspace
+VOLUME ${JENKINS_HOME}/jobs
+# VOLUME ${JENKINS_HOME}/plugins
 
 # RUN git config --global http.sslVerify false \
 #     && git config --global user.name "devops" \
