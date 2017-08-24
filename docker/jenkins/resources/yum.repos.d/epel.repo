@@ -1,0 +1,15 @@
+[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+baseurl=https://mirrors.ustc.edu.cn/epel/7/x86_64
+# baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/7/x86_64
+failovermethod=priority
+enabled=1
+gpgcheck=0
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux 6 - $basearch - Debug
+baseurl=https://mirrors.ustc.edu.cn/epel/7/x86_64/debug
+# baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/7/x86_64/debug
+failovermethod=priority
+enabled=0
+gpgcheck=0

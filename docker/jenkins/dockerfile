@@ -30,14 +30,16 @@ ADD resources/settings.xml /opt/template/maven/settings.xml
 
 # epel, ansible, git, etc. yum repoistory
 # ADD resources/yum.repos.d/*.repo /etc/yum.repos.d/
+ADD resources/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo
 
 # requirements software
 RUN curl --fail --location --retry 3 \
-        https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-        -o /tmp/epel-release-latest-7.noarch.rpm \
-    && rpm -ivh /tmp/epel-release-latest-7.noarch.rpm \
-    && \rm -f /tmp/epel-release-latest-7.noarch.rpm \
-    && curl --fail --location --retry 3 \
+    # Comment epel, replace with epel.repo
+    #     https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+    #     -o /tmp/epel-release-latest-7.noarch.rpm \
+    # && rpm -ivh /tmp/epel-release-latest-7.noarch.rpm \
+    # && \rm -f /tmp/epel-release-latest-7.noarch.rpm \
+    # && curl --fail --location --retry 3 \
         http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
         -o /tmp/git-release-7-2.noarch.rpm \
     && rpm -ivh /tmp/git-release-7-2.noarch.rpm \
