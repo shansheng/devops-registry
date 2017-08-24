@@ -25,8 +25,12 @@ ENV MAVEN_HOME=/opt/apache-maven-3.3.9 \
 
 ENV PATH="${PATH}:${MAVEN_HOME}/bin:${NODE_HOME}/bin:${ANT_HOME}/bin:${GRADLE_HOME}/bin:${SONAR_SCANNER_HOME}/bin"
 
-# build requirements software
-RUN yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils 
+# ansible yum repoistory
+ADD resources/ansible.repo /etc/yum.repo.d/
+
+# ci requirements software
+RUN yum clean all \
+    && yum -y install zip wget git ansible coreutils ttf-dejavu expect iputils ftp
 
 # maven, node, ant, gradle, sonar, jenkins
 ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
