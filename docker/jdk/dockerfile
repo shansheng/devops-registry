@@ -33,3 +33,5 @@ RUN wget --tries=3 \
         -O /tmp/jdk.tar.gz \
     && tar -zxf /tmp/jdk.tar.gz -C /usr/local/ \
     && \rm -f /tmp/jdk.tar.gz ${JAVA_HOME}/src.zip ${JAVA_HOME}/javafx-src.zip
+# Private ftp repository
+# http://ftp.osuosl.org/pub/funtoo/distfiles/oracle-java/jdk-8u144-linux-x64.tar.gz
