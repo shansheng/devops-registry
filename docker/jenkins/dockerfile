@@ -114,7 +114,7 @@ VOLUME /root/.m2
 # VOLUME /home/jenkins/.m2
 
 # jenkins job, workspace
-VOLUME ${JENKINS_HOME}/workspace
+# VOLUME ${JENKINS_HOME}/workspace
 VOLUME ${JENKINS_HOME}/jobs
 # VOLUME ${JENKINS_HOME}/plugins
 
