@@ -38,7 +38,7 @@ RUN curl --fail --location --retry 3 \
     && rm -rf /tmp/tomcat.tar.gz ${TOMCAT_HOME}/webapps/*
 
 # Inject tomcat ThreadPool size by environment on docker run
-ADD resources/server-template.xml ${TOMCAT_HOME}/conf/server-template.xml
+ADD resources/server.xml ${TOMCAT_HOME}/conf/server-template.xml
 
 ADD resources/entrypoint.sh ${TOMCAT_HOME}/bin/
 
