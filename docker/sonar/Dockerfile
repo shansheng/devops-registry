@@ -21,6 +21,7 @@ ENV SONARQUBE_HOME=/opt/sonarqube \
 
 # .tar, .tar.gz
 # ADD resources/sonarqube*.tar* /opt/
+
 # Copy from official Dockerfile
 RUN set -x \
 
@@ -48,13 +49,14 @@ ADD resources/*plugins.tar* ${SONARQUBE_HOME}/extensions/
 # http 9000
 EXPOSE ${SONARQUBE_PORT}
 
-# /opt/data
+# /opt/sonarqube/data
 VOLUME ${SONARQUBE_HOME}/data
 
 ADD resources/entrypoint.sh ${SONARQUBE_HOME}/bin/entrypoint.sh
 
 RUN chmod +x ${SONARQUBE_HOME}/bin/entrypoint.sh
 
+# /opt/sonarqube
 WORKDIR ${SONARQUBE_HOME}
 
 ENTRYPOINT [ "./bin/entrypoint.sh"]
