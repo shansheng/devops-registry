@@ -12,7 +12,6 @@ FROM harbor.registry.com/primeton/jdk:1.8
 
 # jenkins slave settings
 ENV SLAVE_WORKDIR=/opt/jenkins \
-    JNLP_URL=http://localhost:8080/computer/docker-slave/slave-agent.jnlp \
     JAVA_VM_MEM_MIN=512 \
     JAVA_VM_MEM_MAX=4096
 
@@ -120,4 +119,4 @@ EXPOSE ${JENKINS_PORT}
 
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh", "-workDir", ${SLAVE_WORKDIR} ]
 
-CMD [ "-jnlpUrl", ${JNLP_URL} ]
+# CMD [ "-jnlpUrl", "http://localhost:8080/computer/docker-slave/slave-agent.jnlp", "secret", "uuid"]
