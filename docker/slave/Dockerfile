@@ -118,6 +118,6 @@ ADD resources/.gitconfig /root/.gitconfig
 
 EXPOSE ${JENKINS_PORT}
 
-ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh" ]
+ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh", "-workDir", ${SLAVE_WORKDIR} ]
 
-CMD [ "-workDir", ${SLAVE_WORKDIR}, "-jnlpUrl", ${JNLP_URL} ]
+CMD [ "-jnlpUrl", ${JNLP_URL} ]
