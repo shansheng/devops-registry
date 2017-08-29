@@ -16,7 +16,8 @@ EXPOSE 6200
 ENV JAVA_OPTS="${JAVA_OPTS} -DEXTERNAL_CONFIG_DIR=${TOMCAT_HOME}/app_configs" \
     MYSQL_DATABASE=devops \
     MYSQL_USER=devops \
-    MYSQL_PASSWORD=devops
+    MYSQL_PASSWORD=devops \
+    MYSQL_HOST=mysql
 
 ADD resources/devops*.war /tmp/devops.war
 
