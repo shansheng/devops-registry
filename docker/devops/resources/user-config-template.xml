@@ -172,7 +172,7 @@
         </group>
         <group name="Login-Filter">
             <!-- pages that can be accessed by any one including those not login -->
-            <configValue key="Exclude">/common/**.jsp,/index.jsp,/common.remote,/jmxDefault.jmx,/common.download,/coframe/index.jsp,**/org.gocom.components.coframe.auth.LoginManager.login.biz.ext,**/org.gocom.components.coframe.auth.login.login.flow,/coframe/auth/login/login.jsp,/bps/wfclient/index.jsp,/bps/wfclient/login/login.jsp,**/org.gocom.bps.wfclient.login.login.validateLogin.biz.ext,/bps/wfclient/login/validate4Login.jsp,/uc/auth/login/login.html,/api/uc/auth/login,/api/uc/auth/tologin,/api/pcm/repos/actions/githubcallback,/api/pcm/repos/actions/gitlabcallback</configValue>
+            <configValue key="Exclude">/common/**.jsp,/index.jsp,/common.remote,/jmxDefault.jmx,/common.download,/coframe/index.jsp,**/org.gocom.components.coframe.auth.LoginManager.login.biz.ext,**/org.gocom.components.coframe.auth.login.login.flow,/coframe/auth/login/login.jsp,/bps/wfclient/index.jsp,/bps/wfclient/login/login.jsp,**/org.gocom.bps.wfclient.login.login.validateLogin.biz.ext,/bps/wfclient/login/validate4Login.jsp,/uc/auth/login/login.html,/api/uc/auth/login,/api/uc/auth/tologin,/api/pcm/repos/actions/githubcallback,/api/pcm/repos/actions/gitlabcallback,/health.html</configValue>
             <configValue key="Include">*.flow,*.flowx,*.jsp,*.html,*.ajax,*.ext,*.action,*.beanx,/api/*</configValue>
             <!-- the page to display when user not login -->
             <configValue key="LoginPage">/api/uc/auth/tologin</configValue>
