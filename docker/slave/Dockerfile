@@ -10,9 +10,9 @@ FROM harbor.registry.com/primeton/jdk:1.8
 # LABEL maintainer="lizw@primeton.com" \
 #     provider="Primeton Technologies, Ltd."
 
-# jenkins settings
-ENV JENKINS_HOME=/opt/work \
-    JENKINS_PORT=8080 \
+# jenkins slave settings
+ENV SLAVE_WORKDIR=/opt/jenkins \
+    JNLP_URL=http://localhost:8080/computer/docker-slave/slave-agent.jnlp \
     JAVA_VM_MEM_MIN=512 \
     JAVA_VM_MEM_MAX=4096
 
@@ -47,10 +47,7 @@ RUN curl --fail --location --retry 3 \
     && yum clean all \
     && yum -y install zip gzip unzip wget git ansible coreutils ttf-dejavu expect iputils ftp
 
-# maven, node, ant, gradle, sonar, jenkins
-# ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
-# ADD https://nodejs.org/dist/v6.11.2/node-v6.11.2-linux-x64.tar.gz /opt/
-# ADD https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz /opt/
+# maven, node, ant, gradle, sonar, jenkins slave
 
 # maven
 RUN curl --fail --location --retry 3 \
@@ -88,37 +85,30 @@ RUN curl --fail --location --retry 3 \
     && unzip /tmp/sonar-scanner.zip -d /opt/ \
     && \rm -f /tmp/sonar-scanner.zip
 
-# jenkins
-# http://mirrors.jenkins.io/war-stable/${version}/jenkins.war
-# 2.60.3
-RUN curl --fail --location --retry 3 \
-        http://mirrors.jenkins.io/war-stable/latest/jenkins.war \
-        -o /opt/jenkins.war
-
-# jenkins plugins if exists (.tar, .tar.gz)
-ADD resources/plugins.tar* ${JENKINS_HOME}/
-
-# jenkins default users (sysadmin/Sysadmin000)
-ADD resources/users.tar.* ${JENKINS_HOME}/
-
-# entrypoint, env
-ADD resources/entrypoint.sh /opt/
-RUN chmod +x /opt/entrypoint.sh \
-    && echo "registry=https://registry.npm.taobao.org" >> /root/.npmrc
+# jenkins slave
+RUN curl --create-dirs -sSLo SLAVE_RUNNABLE \
+        https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/3.11/remoting-3.11.jar \
+    && chmod 755 /usr/share/jenkins \
+    && chmod 644 /usr/share/jenkins/slave.jar
 
 # ENV HOME /home/jenkins
 # RUN groupadd -g 10000 jenkins \
 #     && useradd -c "Jenkins user" -d $HOME -u 10000 -g 10000 -m jenkins
 # USER jenkins
 
+# entrypoint, env
+ADD resources/entrypoint.sh /opt/
+RUN chmod +x /opt/entrypoint.sh \
+    && echo "registry=https://registry.npm.taobao.org" >> /root/.npmrc
+
+# RUN addgroup -g 1001 jenkins && adduser -u 1001 -G jenkins -s /bin/bash -D jenkins
+
 # maven local repository
 VOLUME /root/.m2
 # VOLUME /home/jenkins/.m2
 
 # jenkins job, workspace
-# VOLUME ${JENKINS_HOME}/workspace
-VOLUME ${JENKINS_HOME}/jobs
-# VOLUME ${JENKINS_HOME}/plugins
+VOLUME ${SLAVE_WORKDIR}
 
 # RUN git config --global http.sslVerify false \
 #     && git config --global user.name "devops" \
@@ -129,3 +119,5 @@ ADD resources/.gitconfig /root/.gitconfig
 EXPOSE ${JENKINS_PORT}
 
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh" ]
+
+CMD [ "-workDir", ${SLAVE_WORKDIR}, "-jnlpUrl", ${JNLP_URL} ]
