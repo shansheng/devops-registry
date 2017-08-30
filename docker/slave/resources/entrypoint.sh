@@ -51,4 +51,4 @@ JAVA_OPTS="${JAVA_OPTS} -Xmx${JAVA_VM_MEM_MAX}m -Xms${JAVA_VM_MEM_MIN}m"
 
 echo "java ${JAVA_OPTS} -jar ${SLAVE_RUNNABLE} $@"
 
-java ${JAVA_OPTS} -jar ${SLAVE_RUNNABLE} $@
+java ${JAVA_OPTS} -jar ${SLAVE_RUNNABLE} -workDir ${SLAVE_WORKDIR} "$@"

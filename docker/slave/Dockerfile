@@ -115,11 +115,7 @@ VOLUME ${SLAVE_WORKDIR}
 ADD resources/.gitconfig /root/.gitconfig
 # ADD resources/.gitconfig /home/jenkins/.gitconfig
 
-ENTRYPOINT [ "/opt/entrypoint.sh", "-workDir", ${SLAVE_WORKDIR} ]
-
-# CMD [ "-jnlpUrl", "http://localhost:8080/computer/docker-slave/slave-agent.jnlp", "-secret", "uuid"]
-CMD [ "-jnlpUrl", ${JNLP_URL}, "-secret", ${JNLP_SECRET} ]
+ENTRYPOINT [ "/opt/entrypoint.sh" ]
 
 # Usage:
-# 1) docker run -d --name agent --rm -e JNLP_URL=http://.../slave-agent.jnlp -e JNLP_SECRET=uuid jenkins-slave:latest
-# 2) docker run -d --name agent --rm jenkins-slave:latest -jnlpUrl http://.../slave-agent.jnlp -secret uuid
+# docker run -d --name agent --rm jenkins-slave:latest -jnlpUrl http://.../slave-agent.jnlp -secret uuid
