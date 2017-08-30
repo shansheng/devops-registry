@@ -118,7 +118,7 @@ ADD resources/.gitconfig /root/.gitconfig
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh", "-workDir", ${SLAVE_WORKDIR} ]
 
 # CMD [ "-jnlpUrl", "http://localhost:8080/computer/docker-slave/slave-agent.jnlp", "-secret", "uuid"]
-CMD [ "-jnlpUrl", "${JNLP_URL}", "-secret", "${JNLP_SECRET}" ]
+CMD [ "-jnlpUrl", ${JNLP_URL}, "-secret", ${JNLP_SECRET} ]
 
 # Usage:
 # 1) docker run -d --name agent --rm -e JNLP_URL=http://.../slave-agent.jnlp -e JNLP_SECRET=uuid jenkins-slave:latest

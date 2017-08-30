@@ -49,6 +49,6 @@ fi
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=utf-8 -Duser.timezone=Asia/Shanghai"
 JAVA_OPTS="${JAVA_OPTS} -Xmx${JAVA_VM_MEM_MAX}m -Xms${JAVA_VM_MEM_MIN}m"
 
-echo "exec java ${JAVA_OPTS} -jar ${SLAVE_RUNNABLE} $@
+echo "exec java ${JAVA_OPTS} -jar ${SLAVE_RUNNABLE} $@"
 
 exec java ${JAVA_OPTS} -jar ${SLAVE_RUNNABLE} $@
