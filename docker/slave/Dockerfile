@@ -12,6 +12,7 @@ FROM harbor.registry.com/primeton/jdk:1.8
 
 # jenkins slave settings
 ENV SLAVE_WORKDIR=/opt/jenkins \
+    SLAVE_RUNNABLE=/usr/share/jenkins/slave.jar \
     JAVA_VM_MEM_MIN=512 \
     JAVA_VM_MEM_MAX=4096
 
@@ -85,10 +86,11 @@ RUN curl --fail --location --retry 3 \
     && \rm -f /tmp/sonar-scanner.zip
 
 # jenkins slave
-RUN curl --create-dirs -sSLo SLAVE_RUNNABLE \
+RUN mkdir -p /usr/share/jenkins \
+    && curl --create-dirs -sSLo ${SLAVE_RUNNABLE} \
         https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/3.11/remoting-3.11.jar \
     && chmod 755 /usr/share/jenkins \
-    && chmod 644 /usr/share/jenkins/slave.jar
+    && chmod 644 ${SLAVE_RUNNABLE}
 
 # ENV HOME /home/jenkins
 # RUN groupadd -g 10000 jenkins \
@@ -99,8 +101,6 @@ RUN curl --create-dirs -sSLo SLAVE_RUNNABLE \
 ADD resources/entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh \
     && echo "registry=https://registry.npm.taobao.org" >> /root/.npmrc
-
-# RUN addgroup -g 1001 jenkins && adduser -u 1001 -G jenkins -s /bin/bash -D jenkins
 
 # maven local repository
 VOLUME /root/.m2
@@ -120,3 +120,8 @@ EXPOSE ${JENKINS_PORT}
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh", "-workDir", ${SLAVE_WORKDIR} ]
 
 # CMD [ "-jnlpUrl", "http://localhost:8080/computer/docker-slave/slave-agent.jnlp", "-secret", "uuid"]
+CMD [ "-jnlpUrl", "${JNLP_URL}", "-secret", "${JNLP_SECRET}" ]
+
+# Usage:
+# 1) docker run -d --name agent --rm -e JNLP_URL=http://.../slave-agent.jnlp -e JNLP_SECRET=uuid jenkins-slave:latest
+# 2) docker run -d --name agent --rm jenkins-slave:latest -jnlpUrl http://.../slave-agent.jnlp -secret uuid

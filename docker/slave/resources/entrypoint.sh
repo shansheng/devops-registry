@@ -9,10 +9,12 @@
 
 BASE_DIR=$(cd `dirname $0`; pwd)
 
-SLAVE_RUNNABLE=/usr/share/jenkins/slave.jar
+if [ -z "${SLAVE_RUNNABLE}" ]; then
+  SLAVE_RUNNABLE=/usr/share/jenkins/slave.jar
+fi
 if [ ! -f ${SLAVE_RUNNABLE} ]; then
-    echo "${SLAVE_RUNNABLE} not found."
-    exit 1
+  echo "${SLAVE_RUNNABLE} not found."
+  exit 1
 fi
 
 # workspace
