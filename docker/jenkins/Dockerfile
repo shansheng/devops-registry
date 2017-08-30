@@ -101,6 +101,8 @@ ADD resources/plugins.tar* ${JENKINS_HOME}/
 # jenkins default users (sysadmin/Sysadmin000)
 ADD resources/users.tar.* ${JENKINS_HOME}/
 
+ADD resources/settings/*.xml ${JENKINS_HOME}/
+
 # entrypoint, env
 ADD resources/entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh \
