@@ -35,8 +35,7 @@ ADD resources/startup.conf ${TOMCAT_HOME}/app_configs/ROOT/startup.conf
 ADD resources/entrypoint.sh ${TOMCAT_HOME}/bin/devops.sh
 
 RUN chmod +x ${TOMCAT_HOME}/bin/devops.sh \
-    && echo "<html><head><title>Health Page</title></head><body><h1>YES</h1></body></html>" \
-        > ${TOMCAT_HOME}/ROOT/health.html
+    && touch ${TOMCAT_HOME}/ROOT/health.html
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
     CMD curl -fs http://localhost:8080/health.html || exit 1
