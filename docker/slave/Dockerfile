@@ -115,8 +115,6 @@ VOLUME ${SLAVE_WORKDIR}
 ADD resources/.gitconfig /root/.gitconfig
 # ADD resources/.gitconfig /home/jenkins/.gitconfig
 
-EXPOSE ${JENKINS_PORT}
-
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh", "-workDir", ${SLAVE_WORKDIR} ]
 
 # CMD [ "-jnlpUrl", "http://localhost:8080/computer/docker-slave/slave-agent.jnlp", "-secret", "uuid"]
