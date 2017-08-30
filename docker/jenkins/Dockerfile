@@ -126,6 +126,8 @@ VOLUME ${JENKINS_HOME}/jobs
 ADD resources/.gitconfig /root/.gitconfig
 # ADD resources/.gitconfig /home/jenkins/.gitconfig
 
-EXPOSE ${JENKINS_PORT}
+# jenkins http 8080
+# jenkins jnlp 9999
+EXPOSE ${JENKINS_PORT} 9999
 
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh" ]
