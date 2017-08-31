@@ -21,6 +21,7 @@ VOLUME /opt/jirasoftware-home/data/attachments \
     /opt/jirasoftware-home/export \
     /opt/jirasoftware-home/caches
 
+# https://downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-7.4.3.tar.gz
 # .tar, .tar.gz
 ADD resources/jira.tar* /opt/
 
