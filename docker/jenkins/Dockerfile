@@ -48,9 +48,6 @@ RUN curl --fail --location --retry 3 \
     && yum -y install zip gzip unzip wget git ansible coreutils ttf-dejavu expect iputils ftp
 
 # maven, node, ant, gradle, sonar, jenkins
-# ADD https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /opt/
-# ADD https://nodejs.org/dist/v6.11.2/node-v6.11.2-linux-x64.tar.gz /opt/
-# ADD https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz /opt/
 
 # maven
 RUN curl --fail --location --retry 3 \
