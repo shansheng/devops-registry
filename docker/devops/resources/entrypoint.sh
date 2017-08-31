@@ -25,6 +25,10 @@ if [ -z "${MYSQL_HOST}" ]; then
   echo "[`date`] [WARN ] Missing enviroment variable MYSQL_HOST, use default value: mysql"
   MYSQL_HOST=mysql
 fi
+if [ -z "${MYSQL_PORT}" ]; then
+  echo "[`date`] [WARN ] Missing enviroment variable MYSQL_PORT, use default value: 3306"
+  MYSQL_PORT=3306
+fi
 
 if [ -f ${CONFIG_PATH}/user-config-template.xml ]; then
   \cp -f ${CONFIG_PATH}/user-config-template.xml ${CONFIG_PATH}/user-config.xml
@@ -32,6 +36,7 @@ if [ -f ${CONFIG_PATH}/user-config-template.xml ]; then
   sed -i -e "s/MYSQL_USER/${MYSQL_USER}/g" ${CONFIG_PATH}/user-config.xml
   sed -i -e "s/MYSQL_PASSWORD/${MYSQL_PASSWORD}/g" ${CONFIG_PATH}/user-config.xml
   sed -i -e "s/MYSQL_HOST/${MYSQL_HOST}/g" ${CONFIG_PATH}/user-config.xml
+  sed -i -e "s/MYSQL_PORT/${MYSQL_PORT}/g" ${CONFIG_PATH}/user-config.xml
 fi
 
 ${TOMCAT_HOME}/bin/entrypoint.sh

@@ -17,7 +17,8 @@ ENV JAVA_OPTS="${JAVA_OPTS} -DEXTERNAL_CONFIG_DIR=${TOMCAT_HOME}/app_configs" \
     MYSQL_DATABASE=devops \
     MYSQL_USER=devops \
     MYSQL_PASSWORD=devops \
-    MYSQL_HOST=mysql
+    MYSQL_HOST=mysql \
+    MYSQL_PORT=3306
 
 ADD resources/devops*.war /tmp/devops.war
 

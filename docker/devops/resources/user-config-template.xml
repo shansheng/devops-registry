@@ -70,11 +70,11 @@
             <configValue key="Database-Type">MySql</configValue>
             <configValue key="Jdbc-Type"/>
             <configValue key="C3p0-DriverClass">com.mysql.jdbc.Driver</configValue>
-            <configValue key="C3p0-Url">jdbc:mysql://MYSQL_HOST:3306/MYSQL_DATABASE</configValue>
+            <configValue key="C3p0-Url">jdbc:mysql://MYSQL_HOST:MYSQL_PORT/MYSQL_DATABASE</configValue>
             <configValue key="C3p0-UserName">MYSQL_USER</configValue>
             <configValue key="C3p0-Password">MYSQL_PASSWORD</configValue>
             <configValue key="C3p0-PoolSize">5</configValue>
-            <configValue key="C3p0-MaxPoolSize">100</configValue>
+            <configValue key="C3p0-MaxPoolSize">1000</configValue>
             <configValue key="C3p0-MinPoolSize">5</configValue>
             <configValue key="Transaction-Isolation">ISOLATION_DEFAULT</configValue>
             <configValue key="Test-Connect-Sql">SELECT count(*) from EOS_UNIQUE_TABLE</configValue>
