@@ -20,7 +20,9 @@ ENV JIRA_VERSION=7.3.1 \
     MYSQL_USER=jira \
     MYSQL_PASSWORD=jira \
     MYSQL_HOST=mysql \
-    MYSQL_PORT=3306
+    MYSQL_PORT=3306 \
+    # YES/yes | NO/no
+    CRACKED_MODE=NO
 
 VOLUME /opt/jira_home/data/attachments \
     /opt/jira_home/log \
@@ -33,6 +35,8 @@ ADD resources/jira.tar* /opt/
 
 # https://confluence.atlassian.com/adminjiraserver073/connecting-jira-applications-to-mysql-861253043.html
 ADD resources/dbconfig.xml ${JIRA_APP}/templates/dbconfig.xml
+
+ADD resources/license/atlassian-extras-3.2.jar ${JIRA_APP}/backup/atlassian-extras-3.2.patch.jar
 
 EXPOSE ${JIRA_PORT}
 
