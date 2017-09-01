@@ -31,7 +31,7 @@ if [ -z "${SONARQUBE_JDBC_PASSWORD}" ]; then
   SONARQUBE_JDBC_PASSWORD=sonar
 fi
 if [ -z "${SONARQUBE_JDBC_URL}" ]; then
-  SONARQUBE_JDBC_URL="jdbc:mysql://mysql:3306/sonar"
+  SONARQUBE_JDBC_URL="jdbc:mysql://mysql:3306/sonar?useUnicode=true&characterEncoding=utf8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&rewriteBatchedStatements=true&useConfigs=maxPerformance"
 fi
 
 JAVA_OPTS="${JAVA_OPTS} -Xms${JAVA_VM_MEM_MIN}m -Xmx${JAVA_VM_MEM_MAX}m"
