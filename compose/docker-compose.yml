@@ -162,10 +162,7 @@ services:
   jira:
     image: harbor.registry.com/primeton/jira:7.3.1
     volumes:
-      - "/data/jira/attachments:/opt/jirasoftware-home/data/attachments"
-      - "/data/jira/log:/opt/jirasoftware-home/log"
-      - "/data/jira/export:/opt/jirasoftware-home/export"
-      - "/data/jira/caches:/opt/jirasoftware-home/caches"
+      - "/data/jira:/opt/jira_home"
     ports:
       - 8090:8090
     env_file:

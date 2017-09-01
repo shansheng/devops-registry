@@ -80,9 +80,9 @@ fi
 # if [ ! -f ${JIRA_APP}/backup/atlassian-extras-3.2.jar ]; then
 #   cp ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar ${JIRA_APP}/backup/
 # fi
-if [ "YES" == "${CRACKED_MODE}" ] || [ "yes" == "${CRACKED_MODE}" ] || [ "y" == "${CRACKED_MODE}" ]; then
-  \cp -f ${JIRA_APP}/backup/atlassian-extras-3.2.patch.jar ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
-fi
+# if [ "YES" == "${CRACKED_MODE}" ] || [ "yes" == "${CRACKED_MODE}" ] || [ "y" == "${CRACKED_MODE}" ]; then
+#   \cp -f ${JIRA_APP}/backup/atlassian-extras-3.2.patch.jar ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
+# fi
 
 JIRA_RUNNABLE=${JIRA_APP}/bin/start-jira.sh
 
