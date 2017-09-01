@@ -69,7 +69,7 @@ if [ -f ${JIRA_APP}/templates/dbconfig.xml ]; then
   if [ ! -d ${JIRA_HOME} ]; then
     mkdir -p ${JIRA_HOME}
   fi
-  cp -f ${JIRA_APP}/templates/dbconfig.xml ${JIRA_HOME}/dbconfig.xml
+  \cp -f ${JIRA_APP}/templates/dbconfig.xml ${JIRA_HOME}/dbconfig.xml
   sed -i -e "s/MYSQL_HOST/${MYSQL_HOST}/g" ${JIRA_HOME}/dbconfig.xml
   sed -i -e "s/MYSQL_DATABASE/${MYSQL_DATABASE}/g" ${JIRA_HOME}/dbconfig.xml
   sed -i -e "s/MYSQL_USER/${MYSQL_USER}/g" ${JIRA_HOME}/dbconfig.xml
