@@ -43,6 +43,7 @@ EXPOSE ${JIRA_PORT}
 ADD resources/entrypoint.sh /opt/entrypoint.sh
 
 RUN chmod +x /opt/entrypoint.sh \
-    && \rm -rf /opt/jirasoftware_home
+    && \rm -rf /opt/jirasoftware_home \
+    && \cp -f ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar ${JIRA_APP}/backup/atlassian-extras-3.2.jar
 
 ENTRYPOINT [ "/bin/sh", "-c", "/opt/entrypoint.sh" ]

@@ -77,11 +77,11 @@ if [ -f ${JIRA_APP}/templates/dbconfig.xml ]; then
   sed -i -e "s/MYSQL_PORT/${MYSQL_PORT}/g" ${JIRA_HOME}/dbconfig.xml
 fi
 
-if [ ! -f ${JIRA_APP}/backup/atlassian-extras-3.2.jar ]; then
-  cp ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar ${JIRA_APP}/backup/
-fi
-if [ "YES" == "${CRACKED_MODE}" ] || [ "yes" == "${CRACKED_MODE}" ]; then
-  cp -f ${JIRA_APP}/backup/atlassian-extras-3.2.patch.jar ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
+# if [ ! -f ${JIRA_APP}/backup/atlassian-extras-3.2.jar ]; then
+#   cp ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar ${JIRA_APP}/backup/
+# fi
+if [ "YES" == "${CRACKED_MODE}" ] || [ "yes" == "${CRACKED_MODE}" ] || [ "y" == "${CRACKED_MODE}" ]; then
+  \cp -f ${JIRA_APP}/backup/atlassian-extras-3.2.patch.jar ${JIRA_APP}/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
 fi
 
 JIRA_RUNNABLE=${JIRA_APP}/bin/start-jira.sh
